@@ -2,7 +2,7 @@ module go-mongo
 
 go 1.20
 
-require go.mongodb.org/mongo-driver v1.12.0
+require go.mongodb.org/mongo-driver v1.12.1
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect

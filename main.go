@@ -47,7 +47,7 @@ func main() {
 	})
 
 	app.Get("/listings", func(c *fiber.Ctx) error {
-		cursor, err := mg.Db.Collection(coll).Find(c.Context(), bson.D{{}}, options.Find().SetLimit(6))
+		cursor, err := mg.Db.Collection(coll).Find(c.Context(), bson.D{{}}, options.Find().SetLimit(20))
 		if err != nil {
 			return c.Status(500).SendString(err.Error())
 		}

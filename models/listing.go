@@ -13,4 +13,6 @@ type Listing struct {
 	BEDS                  int                  `json:"beds" bson:"beds"`
 	BEDROOMS              int                  `json:"bedrooms" bson:"bedrooms"`
 	BATHROOMS             primitive.Decimal128 `json:"bathrooms" bson:"bathrooms"`
+	ACCOMMODATES          int                  `json:"accommodates" bson:"accommodates"`
+	IMAGE                 Images               `json:"images" bson:"images"`
 }
