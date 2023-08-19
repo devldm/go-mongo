@@ -1,69 +1,22 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"log"
-
 	"go-mongo/database"
-	"go-mongo/models"
+	"go-mongo/router"
 
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const coll = "listingsAndReviews"
-
 func main() {
-	mg, err := database.ConnectDB()
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// Create a Fiber app
 	app := fiber.New()
 
-	app.Get("/listings/:id", func(c *fiber.Ctx) error {
-		id := c.Params("id")
-		var result bson.M
-		err := mg.Db.Collection(coll).FindOne(context.TODO(), bson.D{{Key: "_id", Value: id}}).Decode(&result)
-		if err == mongo.ErrNoDocuments {
-			fmt.Printf("No document was found with the id %s\n", id)
-			return err
-		}
-		if err != nil {
-			panic(err)
-		}
+	// Connect to the Database
+	database.ConnectDB()
 
-		jsonData, err := json.MarshalIndent(result, "", "    ")
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("%s\n", jsonData)
-		return c.Status(fiber.StatusOK).JSON(result)
-	})
+	// Setup the router
+	router.SetupRoutes(app)
 
-	app.Get("/listings", func(c *fiber.Ctx) error {
-		cursor, err := mg.Db.Collection(coll).Find(c.Context(), bson.D{{}}, options.Find().SetLimit(20))
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
-		}
-		if err == mongo.ErrNoDocuments {
-			fmt.Printf("No document were found")
-			return err
-		}
-
-		var listings []models.Listing = make([]models.Listing, 0)
-
-		if err := cursor.All(c.Context(), &listings); err != nil {
-			return c.Status(500).SendString(err.Error())
-
-		}
-		return c.JSON(listings)
-	})
-
+	// Listen on port 3000
 	app.Listen(":3000")
 }
