@@ -3,7 +3,6 @@ package listingHandler
 import (
 	"context"
 
-	"encoding/json"
 	"fmt"
 	"go-mongo/database"
 	"go-mongo/models"
@@ -57,10 +56,9 @@ func GetListing(c *fiber.Ctx) error {
 		panic(err)
 	}
 
-	jsonData, err := json.MarshalIndent(result, "", "    ")
+	//jsonData, err := json.MarshalIndent(result, "", "    ")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", jsonData)
 	return c.Status(fiber.StatusOK).JSON(result)
 }
