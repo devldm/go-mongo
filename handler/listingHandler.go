@@ -24,7 +24,7 @@ func GetListings(c *fiber.Ctx) error {
 		log.Fatal(err)
 	}
 
-	cursor, err := mg.Db.Collection(coll).Find(c.Context(), bson.D{{}}, options.Find().SetLimit(20))
+	cursor, err := mg.Db.Collection(coll).Find(c.Context(), bson.D{{}}, options.Find().SetLimit(40))
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

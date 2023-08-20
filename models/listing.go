@@ -15,4 +15,9 @@ type Listing struct {
 	BATHROOMS             primitive.Decimal128 `json:"bathrooms" bson:"bathrooms"`
 	ACCOMMODATES          int                  `json:"accommodates" bson:"accommodates"`
 	IMAGE                 Images               `json:"images" bson:"images"`
+	ADDRESS               Address              `json:"address" bson:"address"`
+	HOST                  Host                 `json:"host" bson:"host"`
+	REVIEW_SCORE          ReviewScore          `json:"review_scores" bson:"review_scores"`
+	NUMBER_OF_REVIEWS     int                  `json:"number_of_reviews" bson:"number_of_reviews"`
+	REVIEWS               []ReviewData         `json:"reviews" bson:"reviews"`
 }
