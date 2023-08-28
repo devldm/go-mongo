@@ -21,4 +21,6 @@ type Listing struct {
 	NUMBER_OF_REVIEWS     int                  `json:"number_of_reviews" bson:"number_of_reviews"`
 	REVIEWS               []ReviewData         `json:"reviews" bson:"reviews"`
 	PRICE                 primitive.Decimal128 `json:"price" bson:"price"`
+	ROOM_TYPE             string               `json:"room_type" bson:"room_type"`
+	AMENITIES             []string             `json:"amenities" bson:"amenities"`
 }
