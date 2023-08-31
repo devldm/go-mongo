@@ -56,9 +56,5 @@ func GetListing(c *fiber.Ctx) error {
 		panic(err)
 	}
 
-	//jsonData, err := json.MarshalIndent(result, "", "    ")
-	if err != nil {
-		panic(err)
-	}
 	return c.Status(fiber.StatusOK).JSON(result)
 }
